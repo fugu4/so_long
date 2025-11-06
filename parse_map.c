@@ -6,7 +6,7 @@
 /*   By: hnogi <hnogi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 22:23:27 by hnogi             #+#    #+#             */
-/*   Updated: 2025/11/06 13:43:55 by hnogi            ###   ########.fr       */
+/*   Updated: 2025/11/06 15:52:59 by hnogi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static void	check_len(char **map)
 {
-	int	width;
+	int	x;
 	int	y;
 
-	width = ft_strlen(map[0]);
+	x = ft_strlen(map[0]);
 	y = 1;
 	while (map[y])
 	{
-		if ((int)ft_strlen(map[y]) != width)
+		if ((int)ft_strlen(map[y]) != x)
 		{
 			free_map(map);
 			error_exit("Error\nMap is not rectangular\n");
