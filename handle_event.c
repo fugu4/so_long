@@ -6,7 +6,7 @@
 /*   By: hnogi <hnogi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:05:00 by hnogi             #+#    #+#             */
-/*   Updated: 2025/11/05 17:14:30 by hnogi            ###   ########.fr       */
+/*   Updated: 2025/11/06 13:43:45 by hnogi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,25 @@ static int	is_valid_move(t_game *game, int new_x, int new_y)
 	return (1);
 }
 
-static void	handle_move(t_game *game, int new_x, int new_y)
+static void	handle_collectible(t_game *game, int new_x, int new_y)
+{
+	if (game->map[new_y][new_x] == 'C')
+	{
+		game->map[new_y][new_x] = '0';
+		game->collected++;
+	}
+}
+
+static void	check_win_condition(t_game *game, int new_x, int new_y)
+{
+	if (game->map[new_y][new_x] == 'E' && game->collected == game->collectibles)
+	{
+		ft_printf("Congratulations! You won in %d moves!\n", game->moves);
+		close_window(game);
+	}
+}
+
+void	handle_move(t_game *game, int new_x, int new_y)
 {
 	if (!is_valid_move(game, new_x, new_y))
 		return ;
@@ -38,32 +56,9 @@ static void	handle_move(t_game *game, int new_x, int new_y)
 	game->player_y = new_y;
 	game->moves++;
 	ft_printf("Moves: %d\n", game->moves);
-	if (game->map[new_y][new_x] == 'C')
-	{
-		game->map[new_y][new_x] = '0';
-		game->collected++;
-	}
+	handle_collectible(game, new_x, new_y);
 	if (game->map[new_y][new_x] != 'E')
 		game->map[new_y][new_x] = 'P';
-	if (game->map[new_y][new_x] == 'E' && game->collected == game->collectibles)
-	{
-		ft_printf("Congratulations! You won in %d moves!\n", game->moves);
-		close_window(game);
-	}
+	check_win_condition(game, new_x, new_y);
 	render_game(game);
-}
-
-int	key_press(int keycode, t_game *game)
-{
-	if (keycode == KEY_ESC)
-		close_window(game);
-	else if (keycode == KEY_W || keycode == KEY_UP)
-		handle_move(game, game->player_x, game->player_y - 1);
-	else if (keycode == KEY_S || keycode == KEY_DOWN)
-		handle_move(game, game->player_x, game->player_y + 1);
-	else if (keycode == KEY_A || keycode == KEY_LEFT)
-		handle_move(game, game->player_x - 1, game->player_y);
-	else if (keycode == KEY_D || keycode == KEY_RIGHT)
-		handle_move(game, game->player_x + 1, game->player_y);
-	return (0);
 }

@@ -6,13 +6,14 @@
 /*   By: hnogi <hnogi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 17:41:40 by hnogi             #+#    #+#             */
-/*   Updated: 2025/11/05 17:17:14 by hnogi            ###   ########.fr       */
+/*   Updated: 2025/11/06 13:44:08 by hnogi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# include "fcntl.h"
 # include "get_next_line.h"
 # include "libft.h"
 # include "mlx.h"
@@ -21,24 +22,6 @@
 
 # define TILE_SIZE 64
 
-// # define COLOR_WALL 0x444444        // 濃いグレー（壁）
-// # define COLOR_PLAYER 0x00FF00      // 緑（プレイヤー）
-// # define COLOR_COLLECTIBLE 0xFFFF00 // 黄色（コイン）
-// # define COLOR_EXIT 0xFF0000        // 赤（出口）
-// # define COLOR_EMPTY 0xFFFFFF
-
-// ====== Key codes (mac) ======
-// # define KEY_W       13
-// # define KEY_A       0
-// # define KEY_S       1
-// # define KEY_D       2
-// # define KEY_UP      126
-// # define KEY_DOWN    125
-// # define KEY_LEFT    123
-// # define KEY_RIGHT   124
-// # define KEY_ESC     53
-
-// ====== Key codes (Linux) ======
 # define KEY_W 119
 # define KEY_A 97
 # define KEY_S 115
@@ -67,14 +50,12 @@ typedef struct s_game
 	int		collectibles;
 	int		collected;
 	int		moves;
-
 	void	*img_w;
 	void	*img_f;
 	void	*img_p;
 	void	*img_e;
 	void	*img_c;
-}	t_game;
-
+}			t_game;
 
 void		error_exit(char *msg);
 void		check_extension(char *filename);
@@ -87,6 +68,9 @@ void		render_game(t_game *game);
 int			key_press(int keycode, t_game *game);
 int			close_window(t_game *game);
 void		cleanup_game(t_game *game);
-void 		load_image(t_game *game);
+void		load_image(t_game *game);
+void		put_tile(t_game *game, int x, int y, char tile);
+void		free_map(char **map);
+void		handle_move(t_game *game, int new_x, int new_y);
 
 #endif

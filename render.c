@@ -6,7 +6,7 @@
 /*   By: hnogi <hnogi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 17:06:51 by hnogi             #+#    #+#             */
-/*   Updated: 2025/11/05 17:01:35 by hnogi            ###   ########.fr       */
+/*   Updated: 2025/11/06 13:44:06 by hnogi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	put_tile(t_game *game, int x, int y, char tile)
 
 void	render_game(t_game *game)
 {
-	int	y;
-	int	x;
-	char tile;
+	int		y;
+	int		x;
+	char	tile;
 
 	y = 0;
 	while (y < game->map_height)
@@ -58,13 +58,12 @@ void	load_image(t_game *game)
 
 	w = 16;
 	h = 16;
-
 	game->img_w = mlx_xpm_file_to_image(game->mlx, "texture/w.xpm", &w, &h);
 	game->img_f = mlx_xpm_file_to_image(game->mlx, "texture/f.xpm", &w, &h);
 	game->img_p = mlx_xpm_file_to_image(game->mlx, "texture/p.xpm", &w, &h);
 	game->img_e = mlx_xpm_file_to_image(game->mlx, "texture/e.xpm", &w, &h);
 	game->img_c = mlx_xpm_file_to_image(game->mlx, "texture/c.xpm", &w, &h);
 	if (!game->img_w || !game->img_f || !game->img_p || !game->img_e
-		|| !game->img_c )
+		|| !game->img_c)
 		error_exit("Error\nFailed to load image files\n");
 }

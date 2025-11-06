@@ -6,7 +6,7 @@
 /*   By: hnogi <hnogi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:58:14 by hnogi             #+#    #+#             */
-/*   Updated: 2025/11/02 19:25:07 by hnogi            ###   ########.fr       */
+/*   Updated: 2025/11/06 13:41:27 by hnogi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,23 @@ static void	count_elements(char **map, int *count)
 	}
 }
 
-static void	check_element_counts(int *count)
+static void	check_element_counts(char **map, int *count)
 {
 	if (count[0] != 1)
+	{
+		free_map(map);
 		error_exit("Error\nMap must have exactly one starting position\n");
+	}
 	if (count[1] != 1)
+	{
+		free_map(map);
 		error_exit("Error\nMap must have exactly one exit\n");
+	}
 	if (count[2] < 1)
+	{
+		free_map(map);
 		error_exit("Error\nMap must have at least one collectible\n");
+	}
 }
 
 void	validate_map(char **map)
@@ -80,6 +89,6 @@ void	validate_map(char **map)
 
 	check_walls(map);
 	count_elements(map, count);
-	check_element_counts(count);
+	check_element_counts(map, count);
 	check_valid_path(map, count[2]);
 }

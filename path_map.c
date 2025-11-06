@@ -6,7 +6,7 @@
 /*   By: hnogi <hnogi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:05:56 by hnogi             #+#    #+#             */
-/*   Updated: 2025/11/02 19:24:48 by hnogi            ###   ########.fr       */
+/*   Updated: 2025/11/06 13:43:59 by hnogi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,19 @@ static void	flood_fill(char **map, int x, int y, t_path_check *check)
 	flood_fill(map, x, y - 1, check);
 }
 
-static void	free_map_copy(char **map)
+static void	check_result(char **map, t_path_check *check, int collectibles)
 {
-	int	i;
-
-	i = 0;
-	while (map[i])
+	free_map(map);
+	if (check->collectibles != collectibles)
 	{
-		free(map[i]);
-		i++;
+		free_map(map);
+		error_exit("Error\nSome collectibles are not reachable\n");
 	}
-	free(map);
+	if (!check->exit_found)
+	{
+		free_map(map);
+		error_exit("Error\nExit is not reachable\n");
+	}
 }
 
 void	check_valid_path(char **map, int collectible_count)
@@ -97,9 +99,5 @@ void	check_valid_path(char **map, int collectible_count)
 	check.collectibles = 0;
 	check.exit_found = 0;
 	flood_fill(map_copy, player_x, player_y, &check);
-	free_map_copy(map_copy);
-	if (check.collectibles != collectible_count)
-		error_exit("Error\nSome collectibles are not reachable\n");
-	if (!check.exit_found)
-		error_exit("Error\nExit is not reachable\n");
+	check_result(map_copy, &check, collectible_count);
 }

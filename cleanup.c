@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnogi <hnogi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/05 16:59:05 by hnogi             #+#    #+#             */
-/*   Updated: 2025/11/05 17:00:21 by hnogi            ###   ########.fr       */
+/*   Created: 2025/11/05 17:00:00 by hnogi             #+#    #+#             */
+/*   Updated: 2025/11/06 13:43:37 by hnogi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	destroy_images(t_game *game)
 		mlx_destroy_image(game->mlx, game->img_c);
 }
 
-static void	free_map(char **map)
+void	free_map(char **map)
 {
 	int	i;
 
