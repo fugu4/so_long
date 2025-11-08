@@ -6,7 +6,7 @@
 /*   By: hnogi <hnogi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 10:05:00 by hnogi             #+#    #+#             */
-/*   Updated: 2025/11/06 13:43:45 by hnogi            ###   ########.fr       */
+/*   Updated: 2025/11/08 15:50:10 by hnogi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int	is_valid_move(t_game *game, int new_x, int new_y)
 		|| new_y >= game->map_height)
 		return (0);
 	if (game->map[new_y][new_x] == '1')
+		return (0);
+	if (game->map[new_y][new_x] == 'E' && game->collected != game->collectibles)
 		return (0);
 	return (1);
 }
